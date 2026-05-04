@@ -21,8 +21,8 @@ export default function HeroVideo() {
           Нутрицевтики на доказательной медицине
         </span>
         <h1 className="text-5xl md:text-6xl lg:text-7xl font-light tracking-tight">
-          <span className="block whitespace-nowrap">Швейцарская формула.</span>
-          <span className="block whitespace-nowrap">Российская цена.</span>
+          <span className="block md:whitespace-nowrap">Швейцарская формула.</span>
+          <span className="block md:whitespace-nowrap">Российская цена.</span>
         </h1>
         <p className="mt-6 max-w-2xl text-lg text-white/80 md:text-xl">
           Бренд, который продаётся там, где удобно покупать — Wildberries, Ozon, Яндекс.Маркет.
