@@ -80,32 +80,42 @@ export default function SiteHeader() {
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 h-16 md:h-20 flex items-center justify-between">
           <Link
-            href="#"
-            aria-label="Geberich — на главную"
-            className="relative h-12 w-12 md:h-14 md:w-14 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-stone-900 rounded"
+            href="/"
+            aria-label="Geberich, на главную"
+            className="flex items-center gap-2.5 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-stone-900"
           >
-            <Image
-              src="/brand/logo-geberich-white.png"
-              alt="Geberich"
-              fill
-              priority
-              loading="eager"
-              sizes="56px"
-              className={`object-contain transition-opacity duration-300 ${
-                scrolled ? "opacity-0" : "opacity-100"
+            <div className="relative h-9 w-9 md:h-11 md:w-11">
+              <Image
+                src="/brand/logo-geberich-sign-white.png"
+                alt=""
+                aria-hidden="true"
+                fill
+                priority
+                loading="eager"
+                sizes="44px"
+                className={`object-contain transition-opacity duration-300 ${
+                  scrolled ? "opacity-0" : "opacity-100"
+                }`}
+              />
+              <Image
+                src="/brand/logo-geberich-sign.png"
+                alt=""
+                aria-hidden="true"
+                fill
+                loading="eager"
+                sizes="44px"
+                className={`object-contain transition-opacity duration-300 ${
+                  scrolled ? "opacity-100" : "opacity-0"
+                }`}
+              />
+            </div>
+            <span
+              className={`text-xl md:text-2xl font-semibold tracking-tight transition-colors duration-300 ${
+                scrolled ? "text-stone-900" : "text-white"
               }`}
-            />
-            <Image
-              src="/brand/logo-geberich.png"
-              alt=""
-              aria-hidden="true"
-              fill
-              loading="eager"
-              sizes="56px"
-              className={`object-contain transition-opacity duration-300 ${
-                scrolled ? "opacity-100" : "opacity-0"
-              }`}
-            />
+            >
+              Geberich
+            </span>
           </Link>
 
           <nav
