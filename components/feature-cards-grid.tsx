@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { FileText, FlaskConical, Mountain, Tag } from "lucide-react";
+import { ListChecks, Microscope, ShieldCheck, Tag } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 type Card = {
@@ -12,12 +12,12 @@ type Card = {
 
 const CARDS: Card[] = [
   {
-    Icon: FlaskConical,
+    Icon: Microscope,
     title: "Доказательная медицина",
     body: 'Каждая формула опирается на клинические исследования. Без обещаний "чудо-эффекта".',
   },
   {
-    Icon: Mountain,
+    Icon: ShieldCheck,
     title: "Швейцарские технологии",
     body: "Производство по швейцарским стандартам. Контроль качества на каждом этапе.",
   },
@@ -27,37 +27,72 @@ const CARDS: Card[] = [
     body: "Продаём через маркетплейсы напрямую. Без посредников и накруток.",
   },
   {
-    Icon: FileText,
+    Icon: ListChecks,
     title: "Прозрачный состав",
     body: 'Полный список ингредиентов и дозировок на упаковке. Никаких "проприетарных смесей".',
   },
 ];
 
+const SHADOW_MD =
+  "0 4px 6px -1px rgb(0 0 0 / 0.10), 0 2px 4px -2px rgb(0 0 0 / 0.10)";
+const SHADOW_LG =
+  "0 10px 15px -3px rgb(0 0 0 / 0.10), 0 4px 6px -4px rgb(0 0 0 / 0.10)";
+
 export default function FeatureCardsGrid() {
   const reduced = useReducedMotion();
 
+  const container = {
+    hidden: {},
+    visible: {
+      transition: { staggerChildren: reduced ? 0 : 0.1 },
+    },
+  };
+
+  const card = {
+    hidden: { opacity: 0, y: reduced ? 0 : 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: reduced ? 0 : 0.5, ease: "easeOut" as const },
+    },
+  };
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-16">
-      {CARDS.map(({ Icon, title, body }, index) => (
+    <motion.div
+      variants={container}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-16"
+    >
+      {CARDS.map(({ Icon, title, body }) => (
         <motion.article
           key={title}
-          initial={{ opacity: 0, y: reduced ? 0 : 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{
-            duration: reduced ? 0 : 0.5,
-            delay: reduced ? 0 : index * 0.1,
-            ease: "easeOut",
-          }}
-          className="bg-white rounded-2xl p-8 border border-stone-200/60 transform-gpu"
+          variants={card}
+          whileHover={
+            reduced
+              ? undefined
+              : {
+                  y: -2,
+                  boxShadow: SHADOW_LG,
+                  transition: { duration: 0.2, ease: "easeOut" },
+                }
+          }
+          style={{ boxShadow: SHADOW_MD }}
+          className="bg-white rounded-2xl p-6 md:p-8 border border-stone-200/60 transform-gpu"
         >
-          <div className="w-12 h-12 bg-stone-900 rounded-xl grid place-items-center">
-            <Icon size={24} className="text-stone-100" />
-          </div>
-          <h3 className="text-lg font-semibold text-stone-900 mt-6">{title}</h3>
-          <p className="text-sm text-stone-600 leading-relaxed mt-2">{body}</p>
+          <Icon
+            size={32}
+            strokeWidth={1.5}
+            className="text-stone-900 mb-4"
+            aria-hidden
+          />
+          <h3 className="text-xl font-medium tracking-tight text-stone-900">
+            {title}
+          </h3>
+          <p className="text-stone-600 leading-relaxed mt-2">{body}</p>
         </motion.article>
       ))}
-    </div>
+    </motion.div>
   );
 }
