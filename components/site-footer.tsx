@@ -1,9 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
+import { RETAILERS, buildRetailerUrl } from "@/lib/retailers";
 
 type Column = {
   heading: string;
-  links: { href: string; label: string }[];
+  links: { href: string; label: string; external?: boolean }[];
 };
 
 const COLUMNS: Column[] = [
@@ -34,12 +35,11 @@ const COLUMNS: Column[] = [
   },
   {
     heading: "Где купить",
-    links: [
-      { href: "#", label: "Wildberries" },
-      { href: "#", label: "Ozon" },
-      { href: "#", label: "Я.Маркет" },
-      { href: "#", label: "Золотое яблоко" },
-    ],
+    links: RETAILERS.map((r) => ({
+      href: buildRetailerUrl(r.id, { medium: "footer", campaign: "general" }),
+      label: r.name,
+      external: true,
+    })),
   },
 ];
 
